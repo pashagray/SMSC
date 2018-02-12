@@ -9,7 +9,8 @@ module SMSC
     )
       super(
         phones: Types::Phone[phone],
-        ping: true
+        ping: true,
+        cost: "3"
       )
     end
   end

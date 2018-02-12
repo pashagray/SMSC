@@ -26,15 +26,22 @@ module SMSC
         Net::HTTP.post_form(uri, build_body(args))
       end
       return Failure(:network_error) if res.error?
-      json = JSON.parse(res.value!.body, symbolize_names: true)
-      if json[:error_code]
-        return Failure(ERRORS[json[:error_code].to_s])
+      hash = JSON.parse(res.value!.body, symbolize_names: true)
+      if hash[:error_code]
+        return Failure(ERRORS[hash[:error_code].to_s])
       else
-        Success(json)
+        Success(fix_floats(hash))
       end
     end
 
     private
+
+    # HOOK
+    # API returns float values as string (eg: "0.00")
+    # Convert such values to floats (eg: 0.0)
+    def fix_floats(hash)
+      Hash[hash.map { |k, v| [k, /\A[0-9]+\.[0-9]+\z/.match(v.to_s) ? v.to_f : v] }]
+    end
 
     def build_body(args)
       {

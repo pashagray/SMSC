@@ -16,7 +16,8 @@ module SMSC
         mes: Types::Strict::String[message],
         translit: Types::OnOff[translit],
         tinyurl: Types::OnOff[tinyurl],
-        flash: Types::OnOff[flash]
+        flash: Types::OnOff[flash],
+        cost: "3"
       )
     end
   end

@@ -4,7 +4,19 @@ require "digest"
 module SMSC
   module Types
     include Dry::Types.module
+
+    ZeroOne = Types::Value("0") | Types::Value("1")
     
+    OnOff = Types.Constructor(Types::Bool) do |val|
+      if val.is_a?(TrueClass)
+        "1"
+      elsif val.is_a?(FalseClass)
+        "0"
+      else
+        ZeroOne[val]
+      end
+    end
+
     # Simple strip all non digit values
     Phone = String.constructor( -> (val) { String(val).gsub(/[^0-9]/, "") })
 

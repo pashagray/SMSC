@@ -38,4 +38,36 @@ RSpec.describe SMSC::Types do
       expect(SMSC::Types::Password["abc"]).to eq("900150983cd24fb0d6963f7d28e17f72")
     end
   end
+
+  describe "OnOff" do
+    context "when true" do
+      it "returns 1" do
+        expect(SMSC::Types::OnOff[true]).to eq("1")
+      end
+    end
+
+    context "when false" do
+      it "returns 0" do
+        expect(SMSC::Types::OnOff[false]).to eq("0")
+      end
+    end
+
+    context "when 1" do
+      it "returns 1" do
+        expect(SMSC::Types::OnOff["1"]).to eq("1")
+      end
+    end
+
+    context "when 0" do
+      it "returns 0" do
+        expect(SMSC::Types::OnOff["0"]).to eq("0")
+      end
+    end
+
+    context "when not a TrueClass/FalseClass" do
+      it "raises error" do
+        expect { SMSC::Types::OnOff["wrong"] }.to raise_error(Dry::Types::ConstraintError)
+      end
+    end
+  end
 end

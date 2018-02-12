@@ -8,9 +8,10 @@ module SMSC
 
     NETWORK_ERRORS = [Errno::ECONNREFUSED].freeze
     ERRORS = {
-      2 => :authorize_error
+      "1" => :parameters_error,
+      "2" => :authorize_error
     }
-    API_PATH = "https://smsc.kz/sys/".freeze
+    API_PATH = "https://smsc.kz/sys".freeze
 
     def initialize(login:, password:, action:, data_format: 3)
       @login    = Types::Strict::String[login]
@@ -27,7 +28,7 @@ module SMSC
       return Failure(:network_error) if res.error?
       json = JSON.parse(res.value!.body, symbolize_names: true)
       if json[:error_code]
-        return Failure(ERRORS[json[:error_code]])
+        return Failure(ERRORS[json[:error_code].to_s])
       else
         Success(json)
       end

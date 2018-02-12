@@ -12,7 +12,7 @@ RSpec.describe SMSC::Send do
       it "returns error" do
         stub_request(:post, "https://smsc.kz/sys/send.php").to_return(body: File.new('spec/smsc/fixtures/wrong_credentials.json'), status: 200)
         request = SMSC::Send.new(login: "login", password: "password")
-        expect(request.call(phone: "87776663322", message: "Follow the white rabbit").value).to eq(:authorize_error)
+        expect(request.call(phone: "87776663322", message: "Follow the white rabbit").value).to eq(:wrong_credentials)
       end
     end
     context "valid data" do

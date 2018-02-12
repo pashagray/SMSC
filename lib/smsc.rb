@@ -7,6 +7,7 @@ require "smsc/api_wrapper"
 require "smsc/balance"
 require "smsc/send"
 require "smsc/ping"
+require "smsc/status"
 
 module SMSC
   # Your code goes here...

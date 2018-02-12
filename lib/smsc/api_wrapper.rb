@@ -8,8 +8,15 @@ module SMSC
 
     NETWORK_ERRORS = [Errno::ECONNREFUSED].freeze
     ERRORS = {
-      "1" => :parameters_error,
-      "2" => :authorize_error
+      "1" => :bad_parameters,
+      "2" => :wrong_credentials,
+      "3" => :insufficient_funds,
+      "4" => :too_many_errors,
+      "5" => :wrong_date_format,
+      "6" => :message_is_prohibited,
+      "7" => :wrong_phone_number,
+      "8" => :not_able_to_deliver,
+      "9" => :frequent_requests
     }
     API_PATH = "https://smsc.kz/sys".freeze
 
@@ -18,6 +25,7 @@ module SMSC
       @password = Types::Strict::String[password]
       @action   = Types::Strict::Symbol[action]
       @format   = Types::Fmt[data_format]
+      @charset  = "UTF=8"
     end
 
     def call(args={})
@@ -30,11 +38,16 @@ module SMSC
       if hash[:error_code]
         return Failure(ERRORS[hash[:error_code].to_s])
       else
-        Success(fix_floats(hash))
+        Success(fix_floats(transform_response(hash)))
       end
     end
 
     private
+
+    # Overide if response should be differen
+    def transform_response(hash)
+      hash
+    end
 
     # HOOK
     # API returns float values as string (eg: "0.00")
@@ -47,7 +60,8 @@ module SMSC
       {
         login: @login,
         psw: @password,
-        fmt: @format
+        fmt: @format,
+        charset: @charset
       }.merge(args)
     end
   end

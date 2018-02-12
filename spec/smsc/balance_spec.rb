@@ -12,7 +12,7 @@ RSpec.describe SMSC::Balance do
       it "returns error" do
         stub_request(:post, "https://smsc.kz/sys/balance.php").to_return(body: File.new('spec/smsc/fixtures/wrong_credentials.json'), status: 200)
         request = SMSC::Balance.new(login: "login", password: "password")
-        expect(request.call.value).to eq(:authorize_error)
+        expect(request.call.value).to eq(:wrong_credentials)
       end
     end
 

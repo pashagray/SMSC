@@ -6,6 +6,7 @@ require "smsc/types"
 require "smsc/api_wrapper"
 require "smsc/balance"
 require "smsc/send"
+require "smsc/ping"
 
 module SMSC
   # Your code goes here...

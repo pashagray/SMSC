@@ -1,10 +1,9 @@
 require "net/http"
 require "dry-monads"
-require "dry-struct"
 
 require "smsc/version"
 require "smsc/types"
-require "smsc/request_struct"
+require "smsc/api_wrapper"
 require "smsc/balance"
 
 module SMSC

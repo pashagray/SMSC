@@ -3,7 +3,7 @@ require "json"
 module SMSC
   extend Dry::Monads::Try::Mixin
 
-  class RequestStruct < Dry::Struct
+  class ApiWrapper
     include Dry::Monads::Result::Mixin
 
     NETWORK_ERRORS = [Errno::ECONNREFUSED].freeze
@@ -12,16 +12,17 @@ module SMSC
     }
     API_PATH = "https://smsc.kz/sys/".freeze
 
-    constructor_type :strict_with_defaults
+    def initialize(login:, password:, action:, data_format: 3)
+      @login    = Types::Strict::String[login]
+      @password = Types::Strict::String[password]
+      @action   = Types::Strict::Symbol[action]
+      @format   = Types::Fmt[data_format]
+    end
 
-    attribute :fmt,   Types::Fmt.default(3)
-    attribute :login, Types::Strict::String
-    attribute :psw,   Types::Password
-
-    def call
-      uri = URI("#{API_PATH}/#{action}.php")
+    def call(args={})
+      uri = URI("#{API_PATH}/#{@action}.php")
       res = SMSC::Try(*NETWORK_ERRORS) do
-        Net::HTTP.post_form(uri, __attributes__)
+        Net::HTTP.post_form(uri, build_body(args))
       end
       return Failure(:network_error) if res.error?
       json = JSON.parse(res.value!.body, symbolize_names: true)
@@ -30,6 +31,16 @@ module SMSC
       else
         Success(json)
       end
+    end
+
+    private
+
+    def build_body(args)
+      {
+        login: @login,
+        psw: @password,
+        fmt: @format
+      }.merge(args)
     end
   end
 end

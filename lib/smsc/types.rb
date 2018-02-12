@@ -8,6 +8,12 @@ module SMSC
     # Simple strip all non digit values
     Phone = String.constructor( -> (val) { String(val).gsub(/[^0-9]/, "") })
 
+    # Wrap
+    Phones = Array.constructor( -> (val) { val.map { |phone| Phone[phone] } })
+
+    # Ensure only JSON format (code: 3)
+    Message = Types.Value(3)
+
     # Ensure only JSON format (code: 3)
     Fmt = Types.Value(3)
 

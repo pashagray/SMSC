@@ -3,7 +3,6 @@ PATH
   specs:
     smsc (0.1.0)
       dry-configurable (~> 0.7)
-      dry-core (~> 0.4)
       dry-monads (~> 0.4)
       dry-types (~> 0.12)
 

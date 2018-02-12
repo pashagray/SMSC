@@ -30,7 +30,6 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "dry-core",         "~> 0.4"
   spec.add_runtime_dependency "dry-types",        "~> 0.12"
   spec.add_runtime_dependency "dry-monads",       "~> 0.4"
   spec.add_runtime_dependency "dry-configurable", "~> 0.7"

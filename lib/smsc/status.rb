@@ -7,7 +7,8 @@ module SMSC
       "1"  => :delivered,
       "2"  => :opened,
       "3"  => :expired,
-      "20" => :wrong_number,
+      "20" => :unable_to_deliver,
+      "22" => :wrong_number,
       "23" => :prohibited,
       "24" => :insufficient_funds,
       "25" => :unreachable_number

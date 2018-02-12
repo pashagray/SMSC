@@ -20,11 +20,12 @@ module SMSC
     }
     API_PATH = "https://smsc.kz/sys".freeze
 
-    def initialize(login:, password:, action:, data_format: 3)
+    def initialize(login: SMSC.config.login, password: SMSC.config.password, action:)
+      raise ArgumentError, "Login and password must be set" unless login && password
       @login    = Types::Strict::String[login]
       @password = Types::Strict::String[password]
       @action   = Types::Strict::Symbol[action]
-      @format   = Types::Fmt[data_format]
+      @format   = Types::Fmt[3]
       @charset  = "UTF=8"
     end
 

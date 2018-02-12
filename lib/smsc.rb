@@ -1,5 +1,6 @@
 require "net/http"
 require "dry-monads"
+require "dry-configurable"
 
 require "smsc/version"
 require "smsc/types"
@@ -10,5 +11,8 @@ require "smsc/ping"
 require "smsc/status"
 
 module SMSC
-  # Your code goes here...
+  extend Dry::Configurable
+
+  setting :login
+  setting :password
 end

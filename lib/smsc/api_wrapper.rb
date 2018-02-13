@@ -6,20 +6,6 @@ module SMSC
   class ApiWrapper
     include Dry::Monads::Result::Mixin
 
-    NETWORK_ERRORS = [Errno::ECONNREFUSED].freeze
-    ERRORS = {
-      "1" => :bad_parameters,
-      "2" => :wrong_credentials,
-      "3" => :insufficient_funds,
-      "4" => :too_many_errors,
-      "5" => :wrong_date_format,
-      "6" => :message_is_prohibited,
-      "7" => :wrong_phone_number,
-      "8" => :not_able_to_deliver,
-      "9" => :frequent_requests
-    }
-    API_PATH = "https://smsc.kz/sys".freeze
-
     def initialize(login: SMSC.config.login, password: SMSC.config.password, action:)
       raise ArgumentError, "Login and password must be set" unless login && password
       @login    = Types::Strict::String[login]
@@ -37,7 +23,7 @@ module SMSC
       return Failure(:network_error) if res.error?
       hash = JSON.parse(res.value!.body, symbolize_names: true)
       if hash[:error_code]
-        return Failure(ERRORS[hash[:error_code].to_s])
+        return Failure(REQUEST_ERRORS[hash[:error_code].to_s])
       else
         Success(fix_floats(transform_response(hash)))
       end

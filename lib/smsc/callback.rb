@@ -1,24 +1,18 @@
-module SMSC
-  class Status < ApiWrapper
-    def initialize(args={})
-      super(args.merge(action: :status))
-    end
+require "digest/sha1"
 
-    def call(
-      phone:,
-      message_id:
-    )
-      super(
-        phone: Types::Phone[phone],
-        id: Types::Coercible::Int[message_id],
-        all: 2
-      )
+module SMSC
+  class Callback
+    def call(params, &block)
+      if block_given?
+        block.call(transform_response(params))
+      else
+        transform_response(params)
+      end
     end
 
     private
 
     def transform_response(hash)
-      to_be_removed = %i[status_name last_timestamp last_date send_date]
       hash
         .reduce({}) do |acc, elem|
           transform_status(acc, elem)
@@ -32,7 +26,6 @@ module SMSC
         .reduce({}) do |acc, elem|
           transform_error(acc, elem)
         end
-        .select { |k, v| !to_be_removed.include?(k) }
     end
 
     def transform_status(acc, elem)

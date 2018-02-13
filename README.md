@@ -1,5 +1,6 @@
 # SMSC
-[![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9578c789a2f4a6e8881a/maintainability)](https://codeclimate.com/github/PavelTkachenko/SMSC/maintainability)
+
 Обертка над сервисом smsc.kz.
 
 - [x] Проверка баланса

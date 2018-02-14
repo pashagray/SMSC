@@ -13,7 +13,7 @@ module SMSC
       elsif val.is_a?(FalseClass)
         "0"
       else
-        ZeroOne[val]
+        raise Dry::Types::ConstraintError.new("#{val} eql? true or false", val)
       end
     end
 

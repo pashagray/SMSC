@@ -52,21 +52,15 @@ RSpec.describe SMSC::Types do
       end
     end
 
-    context "when 1" do
-      it "returns 1" do
-        expect(SMSC::Types::OnOff["1"]).to eq("1")
-      end
-    end
-
-    context "when 0" do
-      it "returns 0" do
-        expect(SMSC::Types::OnOff["0"]).to eq("0")
-      end
-    end
-
     context "when not a TrueClass/FalseClass" do
       it "raises error" do
-        expect { SMSC::Types::OnOff["wrong"] }.to raise_error(Dry::Types::ConstraintError)
+        expect { SMSC::Types::OnOff[:wrong] }.to raise_error(Dry::Types::ConstraintError)
+        expect { SMSC::Types::OnOff[1] }.to raise_error(Dry::Types::ConstraintError)
+        expect { SMSC::Types::OnOff[0] }.to raise_error(Dry::Types::ConstraintError)
+        expect { SMSC::Types::OnOff["1"] }.to raise_error(Dry::Types::ConstraintError)
+        expect { SMSC::Types::OnOff["0"] }.to raise_error(Dry::Types::ConstraintError)
+        expect { SMSC::Types::OnOff["true"] }.to raise_error(Dry::Types::ConstraintError)
+        expect { SMSC::Types::OnOff["false"] }.to raise_error(Dry::Types::ConstraintError)
       end
     end
   end

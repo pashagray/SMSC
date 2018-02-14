@@ -4,8 +4,6 @@ require "digest"
 module SMSC
   module Types
     include Dry::Types.module
-
-    ZeroOne = Types::Value("0") | Types::Value("1")
     
     OnOff = Types.Constructor(Types::Bool) do |val|
       if val.is_a?(TrueClass)

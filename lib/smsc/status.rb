@@ -10,7 +10,7 @@ module SMSC
     )
       super(
         phone: Types::Phone[phone],
-        id: Types::Coercible::Int[message_id],
+        id: Types::Coercible::Integer[message_id],
         all: 2
       )
     end

@@ -27,7 +27,7 @@ gem 'smsc'
 
 TODO: Генератор для Rails
 
-Результатом любого запроса является монада `Success` или `Failure`. Получить значение можно вызвав `value` на результат. Проверить, является ли запрос успешным можно методом `success?`. В `Failure` будет передан ключ ошибки (см. Ошибки). 
+Результатом любого запроса является монада `Success` или `Failure`. Получить значение можно вызвав `value!` на результат. Проверить, является ли запрос успешным можно методом `success?`. В `Failure` будет передан ключ ошибки (см. Ошибки). 
 
 ### Конфигурация
 
@@ -57,10 +57,10 @@ end
 request = SMSC::Balance.new
 result = request.call
 if result.success?
-  puts result.value #=> { balance: 1000.0, cur: "KZT" }
+  puts result.value! #=> { balance: 1000.0, cur: "KZT" }
 else
   # choose how to handle error, for example just puts it!
-  puts result.value
+  puts result.failure
 end
 
 ```
@@ -73,9 +73,9 @@ end
 request = SMSC::Send.new
 result = request.call(phone: '+7 (777) 777-77-77', message: "Следуй за белым кроликом...")
 if result.success?
-  puts result.value #=> { id: 1, cnt: 1 }
+  puts result.value! #=> { id: 1, cnt: 1 }
 else
-  puts result.value
+  puts result.failure
 end
 ```
 
@@ -87,9 +87,9 @@ end
 request = SMSC::Send.new
 result = request.call(phone: '+7 (777) 777-77-77', flash: true, message: "Внимание!")
 if result.success?
-  puts result.value #=> { id: 1, cnt: 1 }
+  puts result.value! #=> { id: 1, cnt: 1 }
 else
-  puts result.value
+  puts result.failure
 end
 
 ```
@@ -102,9 +102,9 @@ end
 request = SMSC::Ping.new
 result = request.call(phone: '+7 (777) 777-77-77')
 if result.success?
-  puts result.value #=> { id: 1, cnt: 1 }
+  puts result.value! #=> { id: 1, cnt: 1 }
 else
-  puts result.value
+  puts result.failure
 end
 ```
 
@@ -116,7 +116,7 @@ end
 request = SMSC::Status.new
 result = request.call(phone: '+7 (777) 777-77-77', id: 1)
 if result.success?
-  result.value
+  result.value!
   # {
   #   cost: 6.4,
   #   country: "Казахстан",
@@ -130,7 +130,7 @@ if result.success?
   #   type: :sms
   # }
 else
-  puts result.value
+  puts result.failure
 end
 
 ```
@@ -185,7 +185,7 @@ end
 
 ### Ошибки запросов
 
-При неудачном запросе возвращается результат `Failure`. При вызове метода `success?` на него, будет возвращено `false`. Для получения кода ошибки нужно вызвать метод `value` на результат.
+При неудачном запросе возвращается результат `Failure`. При вызове метода `success?` на него, будет возвращено `false`. Для получения кода ошибки нужно вызвать метод `failure` на результат.
 
 #### Коды ошибок
 

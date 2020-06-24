@@ -1,10 +1,9 @@
 require "json"
 
 module SMSC
-  extend Dry::Monads::Try::Mixin
-
   class ApiWrapper
-    include Dry::Monads::Result::Mixin
+    include Dry::Monads[:result, :do]
+    include Dry::Monads[:try]
 
     def initialize(login: SMSC.config.login, password: SMSC.config.password, action:)
       raise ArgumentError, "Login and password must be set" unless login && password
@@ -17,7 +16,7 @@ module SMSC
 
     def call(args={})
       uri = URI("#{API_PATH}/#{@action}.php")
-      res = SMSC::Try(*NETWORK_ERRORS) do
+      res = Try(*NETWORK_ERRORS) do
         Net::HTTP.post_form(uri, build_body(args))
       end
       return Failure(:network_error) if res.error?

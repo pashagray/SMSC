@@ -4,7 +4,7 @@ RSpec.describe SMSC::Status do
       it "returns error" do
         stub_request(:post, "https://smsc.kz/sys/status.php").to_raise(Errno::ECONNREFUSED)
         request = SMSC::Status.new(login: "login", password: "password")
-        expect(request.call(phone: "87776663322", message_id: 1).value).to eq(:network_error)
+        expect(request.call(phone: "87776663322", message_id: 1).failure).to eq(:network_error)
       end
     end
 
@@ -12,7 +12,7 @@ RSpec.describe SMSC::Status do
       it "returns error" do
         stub_request(:post, "https://smsc.kz/sys/status.php").to_return(body: File.new('spec/smsc/fixtures/wrong_credentials.json'), status: 200)
         request = SMSC::Status.new(login: "login", password: "password")
-        expect(request.call(phone: "87776663322", message_id: 1).value).to eq(:wrong_credentials)
+        expect(request.call(phone: "87776663322", message_id: 1).failure).to eq(:wrong_credentials)
       end
     end
     context "valid data" do
@@ -31,7 +31,7 @@ RSpec.describe SMSC::Status do
           status: :delivered,
           type: :sms
         }
-        expect(request.call(phone: "87776663322", message_id: 1).value).to eq(expected)
+        expect(request.call(phone: "87776663322", message_id: 1).value!).to eq(expected)
       end
     end
   end

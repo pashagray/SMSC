@@ -30,9 +30,9 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "dry-types",        "~> 0.12"
-  spec.add_runtime_dependency "dry-monads",       "~> 0.4"
-  spec.add_runtime_dependency "dry-configurable", "~> 0.7"
+  spec.add_runtime_dependency "dry-types",        "~> 1.2"
+  spec.add_runtime_dependency "dry-monads",       "~> 1.3"
+  spec.add_runtime_dependency "dry-configurable", "~> 0.11"
 
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake",    "~> 10.0"

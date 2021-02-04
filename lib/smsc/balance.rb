@@ -1,7 +1,7 @@
 module SMSC
   class Balance < ApiWrapper
-    def initialize(args={})
-      super(args.merge(action: :balance))
+    def initialize(**args)
+      super(**args.merge(action: :balance))
     end
 
     def call(show_currency: 1)

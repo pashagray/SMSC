@@ -1,7 +1,7 @@
 module SMSC
   class Status < ApiWrapper
-    def initialize(args={})
-      super(args.merge(action: :status))
+    def initialize(**args)
+      super(**args.merge(action: :status))
     end
 
     def call(

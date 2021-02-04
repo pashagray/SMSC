@@ -1,7 +1,7 @@
 module SMSC
   class Send < ApiWrapper
-    def initialize(args={})
-      super(args.merge(action: :send))
+    def initialize(**args)
+      super(**args.merge(action: :send))
     end
 
     def call(

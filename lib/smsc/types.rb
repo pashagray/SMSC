@@ -3,9 +3,9 @@ require "digest"
 
 module SMSC
   module Types
-    include Dry::Types.module
+    include Dry::Types()
     
-    OnOff = Types.Constructor(Types::Bool) do |val|
+    OnOff = Types.Constructor(Types::Nominal::Bool) do |val|
       if val.is_a?(TrueClass)
         "1"
       elsif val.is_a?(FalseClass)

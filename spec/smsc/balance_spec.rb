@@ -2,7 +2,7 @@ RSpec.describe SMSC::Balance do
   describe "#call" do
     context "CONNECTION_REFUSED" do
       it "returns error" do
-        stub_request(:post, "https://smsc.kz/sys/balance.php").to_raise(Errno::ECONNREFUSED)
+        stub_request(:post, "https://smsc.kz/sys/balance.php").to_raise(Faraday::ConnectionFailed)
         request = SMSC::Balance.new(login: "login", password: "password")
         expect(request.call.failure).to eq(:network_error)
       end

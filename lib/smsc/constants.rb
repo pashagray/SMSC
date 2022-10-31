@@ -24,7 +24,7 @@ module SMSC
     "7" => :phone_call
   }
 
-  NETWORK_ERRORS = [Errno::ECONNREFUSED].freeze
+  NETWORK_ERRORS = [Faraday::ConnectionFailed].freeze
   REQUEST_ERRORS = {
     "1" => :bad_parameters,
     "2" => :wrong_credentials,

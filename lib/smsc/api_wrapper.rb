@@ -17,7 +17,7 @@ module SMSC
     def call(args={})
       uri = URI("#{API_PATH}/#{@action}.php")
       res = Try(*NETWORK_ERRORS) do
-        Net::HTTP.post_form(uri, build_body(args))
+        Faraday.post(uri, build_body(args), "Content-Type" => "application/json")
       end
       return Failure(:network_error) if res.error?
       hash = JSON.parse(res.value!.body, symbolize_names: true)

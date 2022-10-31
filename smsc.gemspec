@@ -33,6 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "dry-types",        "~> 1.2"
   spec.add_runtime_dependency "dry-monads",       "~> 1.3"
   spec.add_runtime_dependency "dry-configurable", "~> 0.11"
+  spec.add_runtime_dependency "faraday"
 
   spec.add_development_dependency "bundler", "~> 2"
   spec.add_development_dependency "rake",    "~> 10.0"

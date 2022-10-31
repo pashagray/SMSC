@@ -1,6 +1,7 @@
 require "net/http"
 require "dry-monads"
 require "dry-configurable"
+require "faraday"
 
 require "smsc/version"
 require "smsc/types"

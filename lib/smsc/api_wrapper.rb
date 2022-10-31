@@ -27,7 +27,7 @@ module SMSC
             psw: @password,
             fmt: @format,
             charset: @charset
-          }
+          }.merge(args)
         end
       end
 

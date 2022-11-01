@@ -2,7 +2,7 @@ RSpec.describe SMSC::Status do
   describe "#call" do
     context "CONNECTION_REFUSED" do
       it "returns error" do
-        stub_request(:post, "https://smsc.kz/sys/status.php").to_raise(Errno::ECONNREFUSED)
+        stub_request(:post, "https://smsc.ru/sys/status.php").to_raise(Errno::ECONNREFUSED)
         request = SMSC::Status.new(login: "login", password: "password")
         expect(request.call(phone: "87776663322", message_id: 1).failure).to eq(:network_error)
       end
@@ -10,14 +10,14 @@ RSpec.describe SMSC::Status do
 
     context "wrong credentials" do
       it "returns error" do
-        stub_request(:post, "https://smsc.kz/sys/status.php").to_return(body: File.new('spec/smsc/fixtures/wrong_credentials.json'), status: 200)
+        stub_request(:post, "https://smsc.ru/sys/status.php").to_return(body: File.new('spec/smsc/fixtures/wrong_credentials.json'), status: 200)
         request = SMSC::Status.new(login: "login", password: "password")
         expect(request.call(phone: "87776663322", message_id: 1).failure).to eq(:wrong_credentials)
       end
     end
     context "valid data" do
       it "returns data on success request" do
-        stub_request(:post, "https://smsc.kz/sys/status.php").to_return(body: File.new('spec/smsc/fixtures/status.json'), status: 200)
+        stub_request(:post, "https://smsc.ru/sys/status.php").to_return(body: File.new('spec/smsc/fixtures/status.json'), status: 200)
         request = SMSC::Status.new(login: "login", password: "password")
         expected = {
           cost: 6.4,

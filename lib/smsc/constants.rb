@@ -61,5 +61,5 @@ module SMSC
     "254" => :sender_not_registered,
     "255" => :rejected_by_operator
   }
-  API_PATH = "https://smsc.kz/sys".freeze
+  API_PATH = "https://smsc.ru/sys".freeze
 end

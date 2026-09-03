@@ -1,5 +1,5 @@
 # SMSC
-[![Maintainability](https://api.codeclimate.com/v1/badges/9578c789a2f4a6e8881a/maintainability)](https://codeclimate.com/github/PavelTkachenko/SMSC/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9578c789a2f4a6e8881a/maintainability)](https://codeclimate.com/github/pashagray/SMSC/maintainability)
 
 Обертка над сервисом smsc.kz.
 
@@ -207,7 +207,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/smsc. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/pashagray/SMSC. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -215,4 +215,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the SMSC project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/smsc/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the SMSC project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/pashagray/SMSC/blob/master/CODE_OF_CONDUCT.md).

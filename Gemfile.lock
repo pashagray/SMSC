@@ -80,7 +80,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 2)
+  bundler (>= 2, < 5)
   rake (~> 13.4)
   rspec (~> 3.13)
   smsc!
